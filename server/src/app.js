@@ -11,7 +11,7 @@ const app=express();
 const uploadsDir=process.env.UPLOADS_DIR||fileURLToPath(new URL('../uploads/',import.meta.url));
 const clientDist=fileURLToPath(new URL('../../client/dist/',import.meta.url));
 app.disable('x-powered-by');
-app.use(helmet({contentSecurityPolicy:{directives:{...helmet.contentSecurityPolicy.getDefaultDirectives(),styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],styleSrcAttr:["'unsafe-inline'"],fontSrc:["'self'",'https://fonts.gstatic.com','data:'],imgSrc:["'self'",'data:','https:']}}}));
+app.use(helmet({contentSecurityPolicy:{directives:{...helmet.contentSecurityPolicy.getDefaultDirectives(),'style-src':["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],'style-src-attr':["'unsafe-inline'"],'font-src':["'self'",'https://fonts.gstatic.com','data:'],'img-src':["'self'",'data:','https:']}}}));
 app.use(cors({origin:process.env.CLIENT_URL||'http://localhost:5173',credentials:true}));
 app.use(express.json({limit:'32kb'}));
 app.use(cookieParser(process.env.SESSION_SECRET));
