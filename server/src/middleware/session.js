@@ -1,0 +1,2 @@
+import {randomBytes,createHash} from 'node:crypto';
+export function session(req,res,next){let id=req.signedCookies?.mystery_session;if(!id||! /^[a-f0-9]{64}$/.test(id)){id=randomBytes(32).toString('hex');res.cookie('mystery_session',id,{signed:true,httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production',maxAge:30*24*60*60*1000,path:'/'});}req.sessionHash=createHash('sha256').update(id).digest('hex');next()}
